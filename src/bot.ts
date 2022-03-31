@@ -5,7 +5,7 @@ const client = new Discord.Client();
 
 const token = <string>process.env.TOKEN;
 
-client.on('message', (msg) => {
+client.on('messageCreate', (msg) => {
   const message = msg.content.split(' ');
 });
 
