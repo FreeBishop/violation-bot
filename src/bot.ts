@@ -1,16 +1,21 @@
-import Discord from 'discord.js';
+// Event Handler imports
+import { messageCreate } from './eventHandlers/messageCreate';
+import { onReady } from './eventHandlers/onReady';
+
+// Server imports
+import { Client, Intents } from 'discord.js';
 import 'dotenv/config';
 
-const client = new Discord.Client();
-
+// Initialize bot client and token
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGES],
+  partials: ['MESSAGE', 'CHANNEL'],
+});
 const token = <string>process.env.TOKEN;
 
-client.on('messageCreate', (msg) => {
-  const message = msg.content.split(' ');
-});
+// Event handlers
+client.on('messageCreate', messageCreate);
+client.on('ready', onReady);
 
-client.on('ready', () => {
-  console.log('This bot is online!');
-});
-
+// Bot login
 client.login(token);
